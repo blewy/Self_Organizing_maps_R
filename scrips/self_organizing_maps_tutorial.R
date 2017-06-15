@@ -90,7 +90,7 @@ data_train_matrix <- as.matrix(scale(data_train))
 # topologies are possible
 #Max nodes:
 (dim_grid=5*sqrt(nrow(data_train_matrix)))
-som_grid <- somgrid(xdim = 8, ydim=8, topo="hexagonal")
+som_grid <- somgrid(xdim = 8, ydim=7, topo="hexagonal")
 
 # Finally, train the SOM, options for the number of iterations,
 # the learning rates, and the neighbourhood are available
@@ -108,11 +108,21 @@ plot(som_model, type="changes")
 ## Node Counts
 plot(som_model, type="count")
 
+## Node Maps
+plot(som_model, type="mapping")
+
+## Node quality
+plot(som_model, type="quality")
+
 ## Neighbour Distance
 plot(som_model, type="dist.neighbours")
 
 ## Codes / Weight vectors
-plot(som_model, type="codes")
+
+
+plot(som_model, type="codes",codeRendering="segments",shape="straight") #,whatmap=c("LOW"))
+#plot(som_model, type="codes",codeRendering="stars")
+#plot(som_model, type="codes",codeRendering="lines")
 
 coolBlueHotRed <- function(n, alpha = 1) {
   rainbow(n, end=4/6, alpha=alpha)[n:1]
