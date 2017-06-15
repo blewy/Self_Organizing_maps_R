@@ -6,7 +6,7 @@ require(data.table)
 library("cluster")
 library("factoextra")
 library(mlbench)
-
+library(Amelia) # for missings
 #------------- Load the Data -------------
 
 data<-read.table("./data/lowbwt.dat", header=TRUE, skip=0)
@@ -64,13 +64,18 @@ for(i in contseq) {
   hist(data_train[,i], main=names(data_train)[i])
 }
 
-#-------------- Density-plot -----------
+#------------- Density-plot ------------
 par(mfrow=c(1,3))
 for(i in contseq) {
   plot(density(data_train[,i]), main=names(data_train)[i])
 }
 
 dev.off() # Stop de multiplot
+
+
+#----------- Create a missing map -----
+missmap(data_train, col=c("black", "grey"), legend=FALSE)
+
 
 #------------------- Modelling SOM ----------------- 
 
