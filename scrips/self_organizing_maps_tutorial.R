@@ -118,9 +118,7 @@ plot(som_model, type="quality")
 plot(som_model, type="dist.neighbours")
 
 ## Codes / Weight vectors
-
-
-plot(som_model, type="codes",codeRendering="segments",shape="straight") #,whatmap=c("LOW"))
+plot(som_model, type="codes",codeRendering="segments",shape="straight",border="gray",bty="n") 
 #plot(som_model, type="codes",codeRendering="stars")
 #plot(som_model, type="codes",codeRendering="lines")
 
