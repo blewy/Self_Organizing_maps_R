@@ -7,6 +7,7 @@ library("cluster")
 library("factoextra")
 library(mlbench)
 library(Amelia) # for missings
+
 #------------- Load the Data -------------
 
 data<-read.table("./data/lowbwt.dat", header=TRUE, skip=0)
@@ -87,7 +88,9 @@ data_train_matrix <- as.matrix(scale(data_train))
 # Create the SOM Grid - you generally have to specify the size of the 
 # training grid prior to training the SOM. Hexagonal and Circular 
 # topologies are possible
-som_grid <- somgrid(xdim = 4, ydim=4, topo="hexagonal")
+#Max nodes:
+(dim_grid=5*sqrt(nrow(data_train_matrix)))
+som_grid <- somgrid(xdim = 8, ydim=8, topo="hexagonal")
 
 # Finally, train the SOM, options for the number of iterations,
 # the learning rates, and the neighbourhood are available
@@ -122,7 +125,7 @@ plot(som_model, type = "property", property = as.data.frame(som_model$codes)[,va
 
 #A more intuitive and useful visualisation is of the variable prior to scaling, which involves some R trickery – using the aggregate function to regenerate the variable from the original training set and the SOM node/sample mappings. The result is scaled to the real values of the training variable (in this case, unemployment percent).
 
-var <- 3 #define the variable to plot 
+var <- 2 #define the variable to plot 
 var_unscaled <- aggregate(as.numeric(data_train[,var]), by=list(som_model$unit.classif), FUN=mean, simplify=TRUE)[,2] 
 plot(som_model, type = "property", property=var_unscaled, main=names(data_train)[var], palette.name=coolBlueHotRed)
 
@@ -142,14 +145,14 @@ res.nbclust <- NbClust(my_data, distance = "euclidean",
 
 factoextra::fviz_nbclust(res.nbclust) + theme_minimal()
 # Cut tree into optimal groups
-grp <- cutree(res.hc, k = 4)
+grp <- cutree(res.hc, k = 3)
 # Visualize
 plot(res.hc, cex = 0.6) # plot tree
-rect.hclust(res.hc, k = 4, border = 2:5) # add rectangle
+rect.hclust(res.hc, k = 3, border = 2:5) # add rectangle
 
 
 # Using facorextra
-som_cluster_v2 <- hcut(my_data, k = 4, stand = TRUE)
+som_cluster_v2 <- hcut(my_data, k = 3, stand = TRUE)
 # Visualize
 fviz_dend(som_cluster_v2, rect = TRUE, cex = 0.5)
 
@@ -165,7 +168,7 @@ plot(som_model, type="codes", bgcol = pretty_palette[grp], main = "Clusters")
 add.cluster.boundaries(som_model, grp)
 
 #Plot SOM Cluster Based on Property
-var <- 3 #define the variable to plot 
+var <- 2 #define the variable to plot 
 var_unscaled <- aggregate(as.numeric(data_train[,var]), by=list(som_model$unit.classif), FUN=mean, simplify=TRUE)[,2] 
 plot(som_model, type = "property", property=var_unscaled, main=names(data_train)[var], palette.name=coolBlueHotRed)
 add.cluster.boundaries(som_model, grp)
