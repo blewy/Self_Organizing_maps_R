@@ -11,4 +11,4 @@ Please see this web page for mode info:
   - https://en.wikipedia.org/wiki/Self-organizing_map
   - https://www.r-bloggers.com/self-organising-maps-for-customer-segmentation-using-r/
   
-enjoy the codinh and learning something new.
+Enjoy the coding and learning something new.
