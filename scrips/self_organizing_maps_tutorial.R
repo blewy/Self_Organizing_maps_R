@@ -71,7 +71,7 @@ for(i in contseq) {
   plot(density(data_train[,i]), main=names(data_train)[i])
 }
 
-dev.off() # Stop de multiplot
+par(mfrow=c(1,1))# Stop de multiplot
 
 
 #----------- Create a missing map -----

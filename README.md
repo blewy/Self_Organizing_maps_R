@@ -6,7 +6,7 @@ The ideia is to improve my intuition about this method to be able to apply this 
 
 Please disregard some issues with categorcial vs continuous variable, for the sake of fast develpment I considered all features/variables continuous.
 
-Please see this web page for mode info:
+Please see this web page for more info:
 
   - https://en.wikipedia.org/wiki/Self-organizing_map
   - https://www.r-bloggers.com/self-organising-maps-for-customer-segmentation-using-r/
